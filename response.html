@@ -84,8 +84,9 @@
             >
               <i class="fas fa-home" style="color: white"></i>
             </a>
-
+            <!-- Reload button -->
             <button
+              id="reload-btn"
               type="submit"
               class="btn-setting color-black btn-hvr-up btn-yellow btn-hvr-blue"
               style="
@@ -108,11 +109,10 @@
               <div class="quote d-flex justify-content-start mb-2rem">
                 <i class="fa fa-quote-left"></i>
               </div>
-              <h2 class="font-weight-light mb-5 line-height-normal">
-                <span class="color-yellow">42</span> is the result given by
-                Google and Bing for the query 'the answer to life the universe
-                and everything'.
-              </h2>
+              <h2
+                id="fact-display"
+                class="font-weight-light mb-5 line-height-normal"
+              ></h2>
 
               <div class="quote d-flex justify-content-end mb-3">
                 <i class="fa fa-quote-right"></i>
@@ -171,5 +171,6 @@
 
     <!-- custom script -->
     <script src="js/script.js"></script>
+    <script src="js/response.js"></script>
   </body>
 </html>

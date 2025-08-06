@@ -602,3 +602,29 @@ triviaModalOverlay.addEventListener("click", () => {
   triviaModal.style.display = "none";
   budgetForm.reset();
 });
+
+document.getElementById("number-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const number = document.getElementById("number-input").value.trim();
+
+  if (!number || isNaN(number)) {
+    alert("Please enter a valid number.");
+    return;
+  }
+
+  fetch(`http://numbersapi.com/${number}/trivia`)
+    .then((res) => res.text())
+    .then((fact) => {
+      // Save to localStorage to access in response.html
+      localStorage.setItem("fact", fact);
+      localStorage.setItem("number", number);
+
+      // Redirect to response page
+      window.location.href = "response.html";
+    })
+    .catch((err) => {
+      alert("Error fetching trivia. Try again later.");
+      console.error(err);
+    });
+});

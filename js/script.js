@@ -613,18 +613,14 @@ document.getElementById("number-form").addEventListener("submit", function (e) {
     return;
   }
 
-  fetch(
-    `https://api.allorigins.win/get?url=${encodeURIComponent(
-      "http://numbersapi.com/" + number + "/trivia"
-    )}`
-  )
-    .then((response) => {
-      if (response.ok) return response.json();
-      throw new Error("Network response was not ok.");
-    })
-    .then((data) => {
-      localStorage.setItem("fact", data.contents);
+  fetch(`http://numbersapi.com/${number}/trivia`)
+    .then((res) => res.text())
+    .then((fact) => {
+      // Save to localStorage to access in response.html
+      localStorage.setItem("fact", fact);
       localStorage.setItem("number", number);
+
+      // Redirect to response page
       window.location.href = "response.html";
     })
     .catch((err) => {

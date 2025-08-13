@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const reloadBtn = document.getElementById("reload-btn");
 
   const number = localStorage.getItem("number");
-  let fact = localStorage.getItem("fact");
+  const fact = localStorage.getItem("fact");
 
   if (!number || !fact) {
     factDisplay.textContent = "No trivia found. Please go back and try again.";
@@ -15,23 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
     .replace(number, "")
     .trim()}`;
 
-  reloadBtn.addEventListener("click", (e) => {
-    e.preventDefault(); // just in case
-
-    const apiURL = `http://numbersapi.com/${number}/trivia`;
-    const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(
-      apiURL
-    )}`;
-
-    fetch(proxy)
-      .then((res) => {
-        if (!res.ok) throw new Error("Network response was not ok.");
-        return res.text();
-      })
+  // Reload button logic
+  reloadBtn.addEventListener("click", () => {
+    fetch(`http://numbersapi.com/${number}/trivia`)
+      .then((res) => res.text())
       .then((newFact) => {
-        newFact = newFact.trim();
         localStorage.setItem("fact", newFact);
-
         factDisplay.innerHTML = `<span class="color-yellow">${number}</span> ${newFact
           .replace(number, "")
           .trim()}`;

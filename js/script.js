@@ -613,10 +613,17 @@ document.getElementById("number-form").addEventListener("submit", function (e) {
     return;
   }
 
-  fetch(`https://numbersapi.com/${number}/trivia`)
-    .then((res) => res.text())
-    .then((fact) => {
-      localStorage.setItem("fact", fact);
+  fetch(
+    `https://api.allorigins.win/get?url=${encodeURIComponent(
+      "http://numbersapi.com/" + number + "/trivia"
+    )}`
+  )
+    .then((response) => {
+      if (response.ok) return response.json();
+      throw new Error("Network response was not ok.");
+    })
+    .then((data) => {
+      localStorage.setItem("fact", data.contents);
       localStorage.setItem("number", number);
       window.location.href = "response.html";
     })
